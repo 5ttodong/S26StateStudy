@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -74,6 +75,7 @@ fun MainScreen() {
 
             // 맨 아래 영어를 보여줄 State
             var meaning by remember { mutableStateOf("") }
+            var expanded by remember { mutableStateOf(false) }
 
             Column(
                 modifier = Modifier.fillMaxSize()
@@ -136,6 +138,7 @@ fun MainScreen() {
                     Button(
                         onClick = {
                             meaning = "Car"
+                            expanded = true
                         },
                         modifier = Modifier.weight(1f).fillMaxHeight().padding(8.dp),
                         shape = RectangleShape,
@@ -147,6 +150,7 @@ fun MainScreen() {
                     Button(
                         onClick = {
                             meaning = "School"
+                            expanded = true
                         },
                         modifier = Modifier.weight(1f).fillMaxHeight().padding(8.dp),
                         shape = RectangleShape,
@@ -162,6 +166,7 @@ fun MainScreen() {
                     Button(
                         onClick = {
                             meaning = "Book"
+                            expanded = true
                         },
                         modifier = Modifier.weight(1f).fillMaxHeight().padding(8.dp),
                         shape = RectangleShape,
@@ -173,6 +178,7 @@ fun MainScreen() {
                     Button(
                         onClick = {
                             meaning = "Chair"
+                            expanded = true
                         },
                         modifier = Modifier.weight(1f).fillMaxHeight().padding(8.dp),
                         shape = RectangleShape,
@@ -185,19 +191,20 @@ fun MainScreen() {
 
 
                 // StateVisibility 결과
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(8.dp)
-                        .weight(1f)
-                        .background(Color.Gray),
-                    contentAlignment = Alignment.Center,
-
-                ) {
-                    Text(
-                        text = meaning,
-                        fontSize = 30.sp
-                    )
+                AnimatedVisibility(visible = expanded) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(8.dp)
+                            .weight(1f)
+                            .background(Color.Gray),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text(
+                            text = meaning,
+                            fontSize = 30.sp
+                        )
+                    }
                 }
             }
         }
